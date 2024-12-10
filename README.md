@@ -59,3 +59,13 @@
      Status 403) para ele
         * Mas se o chamado do serial já tiver sido CONCLUÍDO, ele 
          pode abrir um novo chamado
+
+## Stack utilizada
+
+**Front-end:** Não temos front-end!!! :smiley:
+
+**Back-end:** Java com Spring Boot
+
+**Dados:** Rodei o Docker com o Colima e iniciei um MySQL, após isso utilizei o MySQL Workbench como interface para visualizar para as entidades criadas diretamente no código.
+
+
