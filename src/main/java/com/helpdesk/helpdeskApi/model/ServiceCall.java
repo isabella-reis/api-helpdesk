@@ -22,8 +22,12 @@ public class ServiceCall {
     private Long serviceId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false)
+    private Device device;
 
     @UpdateTimestamp
     @Column(name = "dt_service")
@@ -33,11 +37,8 @@ public class ServiceCall {
     @Column(name = "dt_resolution")
     private LocalDateTime dtResolution;
 
-    @ManyToOne
-    @JoinColumn(name = "device_id", referencedColumnName = "device_id")
-    private Device device;
-
     @Enumerated(EnumType.STRING)
+    @Column(name = "service_status", nullable = false)
     private ServiceStatus serviceStatus;
 
     @OneToMany(mappedBy = "serviceCall")

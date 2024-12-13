@@ -17,6 +17,6 @@ public class Counter {
     private Long counterId;
 
     @OneToOne
-    @JoinColumn(name = "clerk_id", referencedColumnName = "clerk_id")
+    @JoinColumn(name = "clerk_id", referencedColumnName = "clerk_id", nullable = false)
     private Clerk clerk;
 }

@@ -16,6 +16,6 @@ public class Device {
     @Column(name = "device_id")
     private Long deviceId;
 
-    @Column(name = "serial_number")
+    @Column(name = "serial_number", nullable = false)
     private String serialNumber;
 }

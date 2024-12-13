@@ -19,7 +19,7 @@ public class ServiceDetails {
     @Column(name = "details_id")
     private Long serviceDetailsId;
 
-    @Column(name = "service_reason")
+    @Column(name = "service_reason", nullable = false)
     private String serviceReason;
 
     @ManyToOne
