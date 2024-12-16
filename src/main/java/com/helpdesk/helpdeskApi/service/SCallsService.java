@@ -12,5 +12,6 @@ import java.util.List;
 public interface SCallsService {
     ServiceCall createNewServiceCall(Long customerId, Long deviceId, String serviceReason, Long productId, Long clerkId);
     List<ServiceCall> getAllServiceCalls();
+    ServiceCall getServiceCallById(Long customerId);
     List<ServiceCall> getAllServiceCallsByCustomerId(Long customerId);
 }

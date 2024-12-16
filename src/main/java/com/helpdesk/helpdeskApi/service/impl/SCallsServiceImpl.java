@@ -7,12 +7,15 @@ import com.helpdesk.helpdeskApi.repository.ServiceCallRepository;
 import com.helpdesk.helpdeskApi.repository.ServiceDetailsRepository;
 import com.helpdesk.helpdeskApi.service.*;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SCallsServiceImpl implements SCallsService {
 
     private final ServiceCallRepository serviceCallRepository;
@@ -25,8 +28,7 @@ public class SCallsServiceImpl implements SCallsService {
 
     @Autowired
     public SCallsServiceImpl(ServiceCallRepository serviceCallRepository, ServiceDetailsRepository serviceDetailsRepository,
-                             CustomerService customerService, DeviceService deviceService, ProductService productService, ClerkService clerkService,
-                             ServiceStatus status) {
+                             CustomerService customerService, DeviceService deviceService, ProductService productService, ClerkService clerkService) {
         this.serviceCallRepository = serviceCallRepository;
         this.serviceDetailsRepository = serviceDetailsRepository;
         this.customerService = customerService;
@@ -75,6 +77,12 @@ public class SCallsServiceImpl implements SCallsService {
     @Override
     public List<ServiceCall> getAllServiceCalls() {
         return serviceCallRepository.findAll();
+    }
+
+    @Override
+    public ServiceCall getServiceCallById(Long serviceId) {
+        return serviceCallRepository.findById(serviceId)
+                .orElseThrow(() -> new EntityNotFoundException("Service Call not found"));
     }
 
     @Override

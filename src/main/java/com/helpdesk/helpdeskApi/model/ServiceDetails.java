@@ -1,5 +1,6 @@
 package com.helpdesk.helpdeskApi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,5 +45,6 @@ public class ServiceDetails {
 
     @ManyToOne
     @JoinColumn(name = "service_id", referencedColumnName = "service_id")
+    @JsonIgnore
     private ServiceCall serviceCall;
 }
