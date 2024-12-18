@@ -2,46 +2,38 @@ package com.helpdesk.helpdeskApi.controller;
 
 import com.helpdesk.helpdeskApi.model.Customer;
 import com.helpdesk.helpdeskApi.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
-@RequestMapping("api/customers")
+@RequestMapping("/api/customers")
+@RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
-
-    @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
 
     @PostMapping
     public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer) {
         Customer newCustomer = customerService.createNewCustomer(customer);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(newCustomer);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        Optional<Customer> customerOptional = customerService.getCustomerById(id);
+        Customer customer = customerService.getCustomerById(id);
+        return ResponseEntity.ok(customer);
 
-        if (customerOptional.isPresent()) {
-            return ResponseEntity.ok(customerOptional.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = customerService.getAllCustomers();
+    public ResponseEntity<Page<Customer>> getAllCustomers(Page pageable) {
+        Page<Customer> customers = customerService.getAllCustomers(pageable);
         return ResponseEntity.ok(customers);
     }
 

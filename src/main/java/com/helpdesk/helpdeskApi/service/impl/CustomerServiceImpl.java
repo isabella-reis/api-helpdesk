@@ -3,20 +3,15 @@ package com.helpdesk.helpdeskApi.service.impl;
 import com.helpdesk.helpdeskApi.model.Customer;
 import com.helpdesk.helpdeskApi.repository.CustomerRepository;
 import com.helpdesk.helpdeskApi.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-
-    @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
 
     @Override
     public Customer createNewCustomer(Customer customer) {
@@ -24,12 +19,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerById(Long customerId) {
-        return customerRepository.findById(customerId);
+    public Customer getCustomerById(Long customerId) {
+        return customerRepository.findById(customerId).orElse(new Customer()); // Throw Exception - Criar
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+    public Page<Customer> getAllCustomers(Page pageable) {
+        return customerRepository.findAll((Pageable) pageable);
     }
 }

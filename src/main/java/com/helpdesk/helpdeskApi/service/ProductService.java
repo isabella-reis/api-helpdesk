@@ -8,5 +8,5 @@ import java.util.Optional;
 @Service
 public interface ProductService {
     Optional<Product> getProductById (Long productId);
-
+    boolean doesProductExist(Long productId);
 }

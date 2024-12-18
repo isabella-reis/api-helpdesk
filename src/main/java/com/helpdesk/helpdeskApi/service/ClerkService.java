@@ -8,5 +8,5 @@ import java.util.Optional;
 @Service
 public interface ClerkService {
     Optional<Clerk> getClerkById(Long clerkId);
-
+    boolean doesClerkExist(Long clerkId);
 }

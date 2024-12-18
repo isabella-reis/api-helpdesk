@@ -1,17 +1,17 @@
 package com.helpdesk.helpdeskApi.service;
 
-import com.helpdesk.helpdeskApi.model.Customer;
-import com.helpdesk.helpdeskApi.model.Device;
 import com.helpdesk.helpdeskApi.model.ServiceCall;
-import com.helpdesk.helpdeskApi.model.ServiceStatus;
+import com.helpdesk.helpdeskApi.model.dto.ServiceCallRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface SCallsService {
-    ServiceCall createNewServiceCall(Long customerId, Long deviceId, String serviceReason, Long productId, Long clerkId);
-    List<ServiceCall> getAllServiceCalls();
+    ServiceCall createNewServiceCall(ServiceCallRequest serviceCallRequest);
+    Page<ServiceCall> getAllServiceCalls(Pageable pageable);
     ServiceCall getServiceCallById(Long customerId);
-    List<ServiceCall> getAllServiceCallsByCustomerId(Long customerId);
+    Page<ServiceCall> getAllServiceCallsByCustomerId(Pageable pageable, Long customerId);
 }
