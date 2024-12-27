@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ServiceCallRepository extends JpaRepository<ServiceCall, Long> {
-    @Query("SELECT s FROM ServiceCall s WHERE s.customer.customerId = ?1")
+    @Query("SELECT s FROM ServiceCall s WHERE s.customerId.customerId = ?1")
     Page<ServiceCall> findByCustomerId(Pageable page, Long customerId);
 }

@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceCallRequest {
-    private Long customerId;
+public class DeviceDTO {
     private Long deviceId;
-    private Long productId;
-    private Long clerkId;
-    private String serviceReason;
+    private String serialNumber;
 }

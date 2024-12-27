@@ -25,21 +25,20 @@ public class ServiceDetails {
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    private Product product;
+    private Product productId;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
-    private Customer customer;
+    private Customer customerId;
 
     @ManyToOne
     @JoinColumn(name = "clerk_id", referencedColumnName = "clerk_id")
-    private Clerk clerk;
+    private Clerk clerkId;
 
     @UpdateTimestamp
     @Column(name = "dt_service")
     private LocalDateTime dtService;
 
-    @UpdateTimestamp
     @Column(name = "dt_resolution")
     private LocalDateTime dtResolution;
 

@@ -1,12 +1,14 @@
 package com.helpdesk.helpdeskApi.service;
 
-import com.helpdesk.helpdeskApi.model.Device;
+import com.helpdesk.helpdeskApi.model.dto.DeviceDTO;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public interface DeviceService {
-    Optional<Device> getDeviceById (Long deviceId);
+    DeviceDTO createNewDevice(DeviceDTO deviceDTO);
+    DeviceDTO getDeviceById (Long deviceId);
+    void deleteDeviceById(Long deviceId);
+
     boolean doesDeviceExist(Long deviceId);
+
 }

@@ -23,19 +23,11 @@ public class ServiceCall {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
-    private Customer customer;
+    private Customer customerId;
 
     @ManyToOne
     @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false)
-    private Device device;
-
-    @UpdateTimestamp
-    @Column(name = "dt_service")
-    private LocalDateTime dtService;
-
-    @UpdateTimestamp
-    @Column(name = "dt_resolution")
-    private LocalDateTime dtResolution;
+    private Device deviceId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "service_status", nullable = false)

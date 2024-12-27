@@ -1,12 +1,14 @@
 package com.helpdesk.helpdeskApi.service;
 
-import com.helpdesk.helpdeskApi.model.Product;
+import com.helpdesk.helpdeskApi.model.dto.ProductDTO;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public interface ProductService {
-    Optional<Product> getProductById (Long productId);
+    ProductDTO createNewProduct(ProductDTO productDTO);
+    ProductDTO getProductById (Long productId);
+    ProductDTO updateProduct(Long productId, ProductDTO productDTO);
+    void deleteProductById(Long productId);
+
     boolean doesProductExist(Long productId);
 }

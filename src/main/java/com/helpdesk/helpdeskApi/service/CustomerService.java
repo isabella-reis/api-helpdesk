@@ -1,15 +1,15 @@
 package com.helpdesk.helpdeskApi.service;
 
 import com.helpdesk.helpdeskApi.model.Customer;
+import com.helpdesk.helpdeskApi.model.dto.CustomerDTO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface CustomerService {
-    Customer createNewCustomer(Customer customer);
-    Customer getCustomerById(Long customerId);
-    Page<Customer> getAllCustomers(Page pageable);
+    CustomerDTO createNewCustomer(CustomerDTO customerDTO);
+    CustomerDTO getCustomerById(Long customerId);
+    CustomerDTO updateCustomer(Long customerId, CustomerDTO customer);
+    Page<CustomerDTO> getAllCustomers(Pageable pageable);
 }
