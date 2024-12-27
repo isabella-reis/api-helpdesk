@@ -11,6 +11,4 @@ public interface ClerkService {
     ClerkDTO createNewClerk(ClerkDTO clerkDTO);
     ClerkDTO getClerkById(Long clerkId);
     ClerkDTO updateClerk(Long clerkId, ClerkDTO clerkDTO);
-
-    boolean doesClerkExist(Long clerkId);
 }

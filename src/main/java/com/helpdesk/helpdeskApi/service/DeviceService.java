@@ -8,7 +8,4 @@ public interface DeviceService {
     DeviceDTO createNewDevice(DeviceDTO deviceDTO);
     DeviceDTO getDeviceById (Long deviceId);
     void deleteDeviceById(Long deviceId);
-
-    boolean doesDeviceExist(Long deviceId);
-
 }

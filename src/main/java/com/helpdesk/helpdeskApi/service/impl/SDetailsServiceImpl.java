@@ -19,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class SDetailsServiceImpl implements SDetailsService {
     private final ServiceDetailsRepository serviceDetailsRepository;
     private final ClerkService clerkService;
+    private final ServiceDetailsMapper serviceDetailsMapper;
+    private final ClerkMapper clerkMapper;
+
 
     @Transactional
     @Override
@@ -31,11 +34,11 @@ public class SDetailsServiceImpl implements SDetailsService {
         existingServiceDetails.setDtResolution(serviceDetailsDTO.getDtResolution());
 
         ClerkDTO clerkDTO = clerkService.getClerkById(serviceDetailsDTO.getClerkId());
-        Clerk clerk = ClerkMapper.INSTANCE.dtoToClerk(clerkDTO);
+        Clerk clerk = clerkMapper.dtoToClerk(clerkDTO);
         existingServiceDetails.setClerkId(clerk);
 
         ServiceDetails updatedServiceDetails = serviceDetailsRepository.save(existingServiceDetails);
 
-        return ServiceDetailsMapper.INSTANCE.sdetailsToDto(updatedServiceDetails);
+        return serviceDetailsMapper.sdetailsToDto(updatedServiceDetails);
     }
 }

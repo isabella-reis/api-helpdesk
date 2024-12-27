@@ -1,8 +1,10 @@
 package com.helpdesk.helpdeskApi.model.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +14,5 @@ public class ServiceCallDTO {
     private Long customerId;
     private Long deviceId;
     private String serviceStatus;
-    private ServiceDetailsDTO serviceDetails;
+    private List<ServiceDetailsDTO> serviceDetails;
 }

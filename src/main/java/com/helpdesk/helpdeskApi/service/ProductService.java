@@ -9,6 +9,4 @@ public interface ProductService {
     ProductDTO getProductById (Long productId);
     ProductDTO updateProduct(Long productId, ProductDTO productDTO);
     void deleteProductById(Long productId);
-
-    boolean doesProductExist(Long productId);
 }

@@ -9,30 +9,24 @@ import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    @Override
-    public boolean doesProductExist(Long productId) {
-        return productRepository.existsById(productId);
-    }
+    private final ProductMapper productMapper;
 
     @Override
     public ProductDTO createNewProduct(ProductDTO productDTO) {
-        Product product = ProductMapper.INSTANCE.dtoToProduct(productDTO);
+        Product product = productMapper.dtoToProduct(productDTO);
         Product savedProduct = productRepository.save(product);
-        return ProductMapper.INSTANCE.productToDto(savedProduct);
+        return productMapper.productToDto(savedProduct);
     }
 
     @Override
     public ProductDTO getProductById(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoResultException("Product not found."));
-        return ProductMapper.INSTANCE.productToDto(product);
+        return productMapper.productToDto(product);
     }
 
     @Override
@@ -43,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setName(productDTO.getName());
         Product updatedProduct = productRepository.save(existingProduct);
 
-        return ProductMapper.INSTANCE.productToDto(updatedProduct);
+        return productMapper.productToDto(updatedProduct);
     }
 
     @Override

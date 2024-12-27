@@ -12,26 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ClerkServiceImpl implements ClerkService {
-
     private final ClerkRepository clerkRepository;
-
-    @Override
-    public boolean doesClerkExist(Long clerkId) {
-        return clerkRepository.existsById(clerkId);
-    }
+    private final ClerkMapper clerkMapper;
 
     @Override
     public ClerkDTO createNewClerk(ClerkDTO clerkDTO) {
-        Clerk clerk = ClerkMapper.INSTANCE.dtoToClerk(clerkDTO);
+        Clerk clerk = clerkMapper.dtoToClerk(clerkDTO);
         Clerk savedClerk = clerkRepository.save(clerk);
-        return ClerkMapper.INSTANCE.clerkToDto(savedClerk);
+        return clerkMapper.clerkToDto(savedClerk);
     }
 
     @Override
     public ClerkDTO getClerkById(Long clerkId) {
         Clerk clerk = clerkRepository.findById(clerkId)
                 .orElseThrow(() -> new NoResultException("Clerk not found."));
-        return ClerkMapper.INSTANCE.clerkToDto(clerk);
+        return clerkMapper.clerkToDto(clerk);
     }
 
     @Override
@@ -42,7 +37,7 @@ public class ClerkServiceImpl implements ClerkService {
         existingClerk.setName(clerkDTO.getName());
         Clerk updatedClerk = clerkRepository.save(existingClerk);
 
-        return ClerkMapper.INSTANCE.clerkToDto(updatedClerk);
+        return clerkMapper.clerkToDto(updatedClerk);
     }
 
 }

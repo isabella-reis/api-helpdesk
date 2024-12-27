@@ -2,9 +2,9 @@ package com.helpdesk.helpdeskApi.controller;
 
 import com.helpdesk.helpdeskApi.model.dto.DeviceDTO;
 import com.helpdesk.helpdeskApi.service.DeviceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;

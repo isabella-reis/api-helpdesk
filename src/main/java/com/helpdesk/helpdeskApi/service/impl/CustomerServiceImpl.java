@@ -18,12 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
-        Customer customer = CustomerMapper.INSTANCE.dtoToCustomer(customerDTO);
+        Customer customer = customerMapper.dtoToCustomer(customerDTO);
         Customer savedCustomer = customerRepository.save(customer);
-        return CustomerMapper.INSTANCE.customerToDto(savedCustomer);
+        return customerMapper.customerToDto(savedCustomer);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NoResultException("Customer not found."));
 
-        return CustomerMapper.INSTANCE.customerToDto(customer);
+        return customerMapper.customerToDto(customer);
     }
 
     @Override
@@ -44,14 +45,14 @@ public class CustomerServiceImpl implements CustomerService {
         existingCustomer.setEmail(customerDTO.getEmail());
         Customer updatedCustomer = customerRepository.save(existingCustomer);
 
-        return CustomerMapper.INSTANCE.customerToDto(updatedCustomer);
+        return customerMapper.customerToDto(updatedCustomer);
     }
 
     @Override
     public Page<CustomerDTO> getAllCustomers(Pageable pageable) {
         Page<Customer> customerPage = customerRepository.findAll(pageable);
 
-        List<CustomerDTO> customers = CustomerMapper.INSTANCE.customersToDtos(customerPage.getContent());
+        List<CustomerDTO> customers = customerMapper.customersToDtos(customerPage.getContent());
 
         return new PageImpl<>(customers, pageable, customerPage.getTotalElements());
 

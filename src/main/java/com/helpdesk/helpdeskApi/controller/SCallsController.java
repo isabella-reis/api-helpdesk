@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SCallsController {
     private final SCallsService serviceCallsService;
 
-
     @PostMapping
     public ResponseEntity<ServiceCallDTO> createNewServiceCall(@RequestBody NewServiceCallRequest newServiceCallRequest) {
         ServiceCallDTO newSCallDTO = serviceCallsService.createNewServiceCall(newServiceCallRequest.getServiceCallDTO(),

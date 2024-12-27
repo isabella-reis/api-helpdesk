@@ -2,11 +2,11 @@ package com.helpdesk.helpdeskApi.controller;
 
 import com.helpdesk.helpdeskApi.model.dto.CustomerDTO;
 import com.helpdesk.helpdeskApi.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;

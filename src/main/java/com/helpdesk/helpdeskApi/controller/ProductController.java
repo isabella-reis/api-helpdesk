@@ -2,9 +2,9 @@ package com.helpdesk.helpdeskApi.controller;
 
 import com.helpdesk.helpdeskApi.model.dto.ProductDTO;
 import com.helpdesk.helpdeskApi.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

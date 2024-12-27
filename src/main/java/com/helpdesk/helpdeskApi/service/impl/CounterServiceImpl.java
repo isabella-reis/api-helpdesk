@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CounterServiceImpl implements CounterService {
     private final CounterRepository counterRepository;
+    private final CounterMapper counterMapper;
 
     @Override
     public CounterDTO createNewCounter(CounterDTO counterDTO) {
-        Counter counter = CounterMapper.INSTANCE.dtoToCounter(counterDTO);
+        Counter counter = counterMapper.dtoToCounter(counterDTO);
         Counter savedCounter = counterRepository.save(counter);
-        return CounterMapper.INSTANCE.counterToDto(savedCounter);
+        return counterMapper.counterToDto(savedCounter);
     }
 }

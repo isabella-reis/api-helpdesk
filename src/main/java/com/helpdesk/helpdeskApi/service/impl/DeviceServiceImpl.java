@@ -13,24 +13,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DeviceServiceImpl implements DeviceService {
     private final DeviceRepository deviceRepository;
-
-    @Override
-    public boolean doesDeviceExist(Long deviceId) {
-        return deviceRepository.existsById(deviceId);
-    }
+    private final DeviceMapper deviceMapper;
 
     @Override
     public DeviceDTO createNewDevice(DeviceDTO deviceDTO) {
-        Device device = DeviceMapper.INSTANCE.dtoToDevice(deviceDTO);
+        Device device = deviceMapper.dtoToDevice(deviceDTO);
         Device savedDevice = deviceRepository.save(device);
-        return DeviceMapper.INSTANCE.deviceToDto(savedDevice);
+        return deviceMapper.deviceToDto(savedDevice);
     }
 
     @Override
     public DeviceDTO getDeviceById(Long deviceId) {
         Device device = deviceRepository.findById(deviceId)
                 .orElseThrow(() -> new NoResultException("Device not found."));
-        return DeviceMapper.INSTANCE.deviceToDto(device);
+        return deviceMapper.deviceToDto(device);
     }
 
     @Override

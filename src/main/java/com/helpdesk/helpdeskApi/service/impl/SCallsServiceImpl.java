@@ -31,26 +31,32 @@ public class SCallsServiceImpl implements SCallsService {
     private final DeviceService deviceService;
     private final ProductService productService;
     private final ClerkService clerkService;
+    private final ServiceDetailsMapper serviceDetailsMapper;
+    private final ServiceCallMapper serviceCallMapper;
+    private final ClerkMapper clerkMapper;
+    private final CustomerMapper customerMapper;
+    private final DeviceMapper deviceMapper;
+    private final ProductMapper productMapper;
 
     @Transactional
     @Override
     public ServiceCallDTO createNewServiceCall (ServiceCallDTO serviceCallDTO, ServiceDetailsDTO serviceDetailsDTO) {
 
         CustomerDTO customerDTO = customerService.getCustomerById(serviceCallDTO.getCustomerId());
-        Customer customer = CustomerMapper.INSTANCE.dtoToCustomer(customerDTO);
+        Customer customer = customerMapper.dtoToCustomer(customerDTO);
 
         DeviceDTO deviceDTO = deviceService.getDeviceById(serviceCallDTO.getDeviceId());
-        Device device = DeviceMapper.INSTANCE.dtoToDevice(deviceDTO);
+        Device device = deviceMapper.dtoToDevice(deviceDTO);
 
         ProductDTO productDTO = productService.getProductById(serviceDetailsDTO.getProductId());
-        Product product = ProductMapper.INSTANCE.dtoToProduct(productDTO);
+        Product product = productMapper.dtoToProduct(productDTO);
 
         ClerkDTO clerkDTO = clerkService.getClerkById(serviceDetailsDTO.getClerkId());
-        Clerk clerk = ClerkMapper.INSTANCE.dtoToClerk(clerkDTO);
+        Clerk clerk = clerkMapper.dtoToClerk(clerkDTO);
 
 
         // Criação da nova ServiceCall
-        ServiceCall newServiceCall = ServiceCallMapper.INSTANCE.dtoToSCall(serviceCallDTO);
+        ServiceCall newServiceCall = serviceCallMapper.dtoToSCall(serviceCallDTO);
         newServiceCall.setCustomerId(customer);
         newServiceCall.setDeviceId(device);
         newServiceCall.setServiceStatus(ServiceStatus.ABERTO);
@@ -58,7 +64,7 @@ public class SCallsServiceImpl implements SCallsService {
         // Persistir a nova ServiceCall
         newServiceCall = serviceCallRepository.save(newServiceCall);
 
-        ServiceDetails serviceDetails = ServiceDetailsMapper.INSTANCE.dtoToSDetails(serviceDetailsDTO);
+        ServiceDetails serviceDetails = serviceDetailsMapper.dtoToSDetails(serviceDetailsDTO);
         serviceDetails.setProductId(product);
         serviceDetails.setCustomerId(customer);
         serviceDetails.setClerkId(clerk);
@@ -67,14 +73,14 @@ public class SCallsServiceImpl implements SCallsService {
         serviceDetailsRepository.save(serviceDetails);
 
         // Retornar o DTO da nova ServiceCall
-        return ServiceCallMapper.INSTANCE.sCallToDto(newServiceCall);
+        return serviceCallMapper.sCallToDto(newServiceCall);
     }
 
     @Override
     public Page<ServiceCallDTO> getAllServiceCalls(Pageable pageable) {
         Page<ServiceCall> serviceCallPage = serviceCallRepository.findAll(pageable);
         List<ServiceCallDTO> serviceCallDTOs = serviceCallPage.getContent().stream()
-                .map(ServiceCallMapper.INSTANCE::sCallToDto)
+                .map(serviceCallMapper::sCallToDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(serviceCallDTOs, pageable, serviceCallPage.getTotalElements());
@@ -84,7 +90,7 @@ public class SCallsServiceImpl implements SCallsService {
     public ServiceCallDTO getServiceCallById(Long serviceId) {
         ServiceCall serviceCall = serviceCallRepository.findById(serviceId)
                 .orElseThrow(() -> new NoResultException("Service Call not found. ID: " + serviceId));
-        return ServiceCallMapper.INSTANCE.sCallToDto(serviceCall);
+        return serviceCallMapper.sCallToDto(serviceCall);
     }
 
     @Override
@@ -96,19 +102,19 @@ public class SCallsServiceImpl implements SCallsService {
         existingServiceCall.setServiceStatus(ServiceStatus.valueOf(serviceCallDTO.getServiceStatus())); // Atribui o enum correspondente
 
         DeviceDTO deviceDTO = deviceService.getDeviceById(serviceCallDTO.getDeviceId());
-        Device device = DeviceMapper.INSTANCE.dtoToDevice(deviceDTO);
+        Device device = deviceMapper.dtoToDevice(deviceDTO);
         existingServiceCall.setDeviceId(device);
 
         ServiceCall updatedServiceCall = serviceCallRepository.save(existingServiceCall);
 
-        return ServiceCallMapper.INSTANCE.sCallToDto(updatedServiceCall);
+        return serviceCallMapper.sCallToDto(updatedServiceCall);
     }
 
     @Override
     public Page<ServiceCallDTO> getAllServiceCallsByCustomerId(Pageable pageable, Long customerId) {
         Page<ServiceCall> serviceCallPage = serviceCallRepository.findByCustomerId(pageable, customerId);
         List<ServiceCallDTO> serviceCallDTOs = serviceCallPage.getContent().stream()
-                .map(ServiceCallMapper.INSTANCE::sCallToDto)
+                .map(serviceCallMapper::sCallToDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(serviceCallDTOs, pageable, serviceCallPage.getTotalElements());
